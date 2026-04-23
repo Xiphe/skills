@@ -1,5 +1,5 @@
 ---
-name: Golden Commit
+name: golden-commit
 description: Commit changes capturing the why, what and how of the changeset. Working with the user for intent, rationale and references. Use when user asks to write commit message, commit changes, or mentions git commit.
 ---
 
