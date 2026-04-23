@@ -1,5 +1,5 @@
 ---
-name: Commit
+name: Golden Commit
 description: Generate a "golden" commit messages following the established commit message format by analyzing git diffs. Prefer asking the user for intent and references over inferring from the diff alone; use when the user asks to write commit messages, create commits, review staged changes, or mentions git commit.
 ---
 
