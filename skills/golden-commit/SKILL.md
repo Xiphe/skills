@@ -70,14 +70,16 @@ Do NOT assume anything based only on the staged changes. "Obvious" file names or
 self-documenting docs are **not** an exception: the diff still does not prove product
 intent or release context.
 
-When available use the `AskQuestion` or a similar interactive tool. And ALWAYS provide a "Other..." option.
+When available use the `AskQuestion` or a similar interactive tool.
+ONLY ask open questions, NEVER suggestive or inferred yes/no prompts.
+ALWAYS provide a "Other..." option.
 
 When no interactive tool is available resort to freeform conversation.
 Going back and forth with the user asking concise 1-2 questions at a time.
 
-User input is NOT to be taken literally. They may respond in spoken language, or with a vague story about the changeset. It is your job to interpret and understand the user's intent and bring it into a format that is actionable and helpful to the future maintainers.
+User responses are NOT to be taken literally. They may respond in spoken language, or with a vague story. Your job is interpret and understand the user's intent and bring it into a format that is actionable and helpful to the future maintainers.
 
-Continue asking questions until you have clarity.
+Continue asking questions until you have absolute clarity.
 
 #### References
 
@@ -194,7 +196,7 @@ the "why", the "what" and the "how".
 
 ### 4. Commit and be silent
 
-Commit the changes and write "committed as `{sha}`" as a final message.
+Commit the changes and write "-> `{sha}`" as a final message.
 DO NOT provide any summary of what you did - NEVER.
 
 ---
