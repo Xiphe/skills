@@ -197,6 +197,10 @@ the "why", the "what" and the "how".
    Nothing to do here oder then to really make sure that we don't pollute
    the commit message header or body with any implementation details.
 
+### 4. Commit and be silent
+
+Commit the changes and write "committed as `{sha}`" as a final message. No need to summarize anything.
+
 ---
 
 ## Breaking changes
