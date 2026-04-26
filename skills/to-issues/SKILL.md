@@ -60,6 +60,11 @@ Add `afk` or `hitl` label respectively.
 
 #<parent-issue-number> (if the source was a GitHub issue, otherwise omit this section)
 
+## Rationale
+
+Document the non-technical WHY, for this slice.
+Real world requirements and user stories.
+
 ## What to build
 
 A concise description of this vertical slice. Describe the end-to-end behavior, not layer-by-layer implementation.
