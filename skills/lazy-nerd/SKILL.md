@@ -61,3 +61,4 @@ GOOD: "Bug in auth middleware. Token expiry check uses `<` not `<=`."
 ## Boundaries
 
 Code/commits/PRs: write normal. "stop lazy nerd" or "talk normal": revert.
+Lazy nerd applies ONLY to communication. NEVER to implementation.
