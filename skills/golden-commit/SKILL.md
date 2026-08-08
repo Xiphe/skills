@@ -1,116 +1,103 @@
 ---
 name: golden-commit
-description: Write genuinely helpful commit messages that encode the driving
-  factors and rationale behind the changeset. Apply when writing or reviewing commit message structure.
+description: Golden commit criteria for preserving the why, what, and how of a
+  changeset. Apply when drafting or reviewing commit messages, or assessing
+  commit scope.
 ---
-
-> Any commit's value is determined by its usefulness in future software archeology
-> Including:
->
-> - changelog generation
-> - summaries of what shipped last month
-> - a `git blame` two years in the future
-> - `git bisect` sessions
 
 # golden commits
 
-A golden commit enables any future engineer to make sense of the situation at
-the time of writing the diff. And its message carries everything that isn't
-inferrable from code alone in its header, body and as reference links in the
-footer.
+A golden commit documents a changeset for software archaeology using
+the project's established commit message format or defaulting to Conventional
+Commits style.
 
-Golden commits use the project's established commit message format or default
-to conventional commits style.
+1. **Why** was a change made? (In the commit message body)
 
-The name "Golden Commits" derives from the "Golden Circle" analogy as they encode
-the "why", "what" and "how" of a change.
-
-1. **Why** was a change made? (The commit message body)
-
-   In present tense, it documents the driving factors behind the changeset up to
-   the /user-facing-why.
-
-   It's commonly introduced by the phrase "In order to...", "Due to..." or
-   "As a result of...".
-
-   NEVER mentions implementation details (how).
-   NEVER summarizes the diff (how).
-   NEVER repeats the commit header (what).
-
-   **Good why examples:**
-   - In order to prevent data loss when users navigate away while
-     editing their bio.
-   - Addressing a rendering bug introduced by the new saving-
-     indicator, where the header was not visible on mobile devices.
-
-     After clicking save, the header had disappeared and would only
-     reappear after full page reload.
-
-   - Enabling our "ship often, ship reliable" philosophy, we have to
-     ensure that CI is observable and that we have a clear way to
-     track the status of the build.
-
-     That enables us to identify and fix performance regressions of
-     the pipelines early. Ultimately reducing the risk of delaying
-     releases or shipping broken builds.
-
-   **Bad why examples:**
-   - ❌ "Changed useState to useReducer"
-   - ❌ "Simplified package names"
-   - ❌ "Added a new function"
-   - ❌ "Updated the component"
-   - ❌ "Changes include: [list of changes...]"
-
-   _(These are deliberately short and illustrative examples. There is
-   no character limit to the commit body. It is as deep as needed to make the
-   message genuinely helpful 3 years in the future)._
+   The _why_ traces the causal chain from the conditions that made the change
+   necessary toward its intended effect, preserving the links a future engineer
+   cannot infer from the header or diff. Technical details form part of the
+   _why_ when they preserve such a link or explain a constraint, tradeoff, or
+   surprising decision.
 
    **External References**
 
-   A /trail-of-why commonly also includes external references such as
-   - specifications
-   - tickets
-   - documentation
-   - architecture decision records
-   - related commits
-
-   References are placed in the commit footer, after the body.
-   Ordered by significance, most important refs last.
+   It also points to the external /trail-of-why links such as specifications,
+   tickets, documentation, architecture decision records and related commits
+   placed in the commit footer, after the body (ordered by significance, most
+   important refs last).
 
    **Additional content**
 
-   The project's commit message format or changelog generation or other tooling
-   may further require documentation of breaking changes, example code, etc...
-   These can always be woven into a golden commit's body as it's not exclusively
-   for the _why_.
+   Golden commits are additive: project conventions may require other body
+   content. Such content can coexist with the _why_, but does not replace it.
 
 2. **What** was changed? (The commit message header)
 
-   A short (64 characters or less), present-tense summary of the change.
-   Reading like the announcement of the diff in the language most understood by
-   readers of the project's history and changelog.
-   _(`git diff` is a changelog, and the project may also use tools to generate a
-   public log from the header)_
+   A short announcement of the target state, within the project's header limit
+   or 64 characters when none is established, written in the language most
+   understood by readers of its history and changelog.
 
 3. **How** was the change made? (The diff)
 
-   By its very nature, any commit's diff perfectly encodes the _how_.
+   The diff is the primary record of how the change was implemented.
 
-   A golden commit represents a single coherent step in the project's roadmap.
-   It can be reverted without breaking unrelated parts of the system.
+## Commit Scope
 
-   **Smells of over-scoped commits:**
-   - Header too generic: `fix: solve multiple race conditions`
-   - Use of additive connectives: `also`, `in addition to`, `further`
-   - Unclear conventional commit scope `feat(signin+compiler): `
+A golden commit represents one coherent change: it can be reverted without
+breaking unrelated behavior.
 
-   These are best met with re-scoping the diff and producing multiple smaller
-   commits.
+**Smells of over-scoped commits:**
 
-   **Smells of under-scoped commits:**
-   - build, tests, linter etc. are not green
-   - successive commits carry similar messages: `fix: attempt 3`
-   - a small diff + synthetic _why_: `...in order to improve dx`
+- The commit needs more than one independent _why_.
+- Parts of the diff can be reverted independently without invalidating the
+  rest.
+- An accurate header must join unrelated outcomes or scopes.
 
-   These are best met with re-scoping or squashing into a meaningful diff, given
-   the git workflow allows for it.
+**Smells of fragmented commits:**
+
+- The commit requires an adjacent commit to build, test, or behave coherently.
+- Its header or _why_ only makes sense when read with a neighboring commit.
+- Successive commits repeatedly revise the same change without creating
+  independently meaningful states.
+
+These smells trigger re-evaluation of the commit scope.
+
+## Examples
+
+```text
+fix(header): keep header visible after saving on mobile
+
+The recently added saving indicator caused the header to disappear on mobile
+devices whenever a user saved their profile. This was unintended and left the
+top navigation inaccessible until the user reloaded the page. Preventing the
+line break that caused the mis-render keeps the header in position.
+
+ref: [saving indicator added](https://example.com/commits/12af9e)
+fix: https://example.com/issues/417
+```
+
+```text
+feat(color-cache): share rendered colorways across pipelines
+
+The upcoming triple-color pipeline switches between rendered colorways during
+product configuration. Regenerating a colorway on selection caused visible
+flicker, while keeping the cache inside that pipeline would duplicate the same
+lifecycle needed by other renderers. A shared cache gives those consumers one
+ownership model.
+
+spec: https://example.com/specs/triple-color-pipeline
+adr: https://example.com/adrs/shared-colorway-cache
+fix: https://example.com/issues/842
+```
+
+```text
+fix(linker): stabilize relocation order in incremental builds
+
+Incremental builds occasionally emitted binaries with debug addresses that
+differed from clean builds. Relocations inherited filesystem discovery order,
+which remained stable within one process but varied across machines; a remote
+cache hit could therefore change symbol ordering. Ordering relocations by
+section offset makes clean and incremental artifacts reproducible.
+
+fix: https://example.com/toolchain/issues/912
+```
