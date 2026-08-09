@@ -1,62 +1,77 @@
 ---
 name: user-facing-why
-description: Find the driving factors for current efforts.
+description: User-facing why discovery from project evidence and human input.
+  Apply when grounding current work in a beneficiary-valued outcome.
 ---
 
-## Step 1
+# User-facing why
 
-For the given set of work understand the following.
-Write your answers to a temporary file.
+A user-facing why is an evidenced outcome that an affected beneficiary values
+in their own context. It names the capability, constraint, or result the work
+supports in the beneficiary's domain language.
 
-1. Who is the user we implement for?
+The practice produces a grounded understanding held in the working context.
+Consuming workflows decide how to encode that understanding in commits,
+tickets, documents, or other artifacts.
 
-Depending on the type of product/seam that may be someone clicking buttons
-in order to produce an effect they want. Or another service using APIs
-of ours to automate things. Or an engineer leveraging the features provided
-by a library.
+## Interaction modes
 
-The user is the direct beneficial of the change. Sometimes that is internal
-staff, other teams or steakholders. Usually its the target entities of the product.
-Avoid indirect or synthetic constructions. Name the user you know of and understand.
+Every retained causal link is grounded in project evidence, observed behavior,
+or human input. Relevant evidence includes tickets, decision records,
+documentation, existing trails of why, and the current work.
 
-2. What does this user want to achieve?
+### HITL
 
-What is the goal of this user outside of our project?
-The thing that our software enables to systems and situations
-outside of our domain.
+Interview the user about unresolved causal links, updating the causal chain
+after each answer. HITL completes when the user confirms the highest supported
+why and its causal connection to the current work.
 
-How are where are we supporting them?
+### AFK
 
-3. Why are we changing the product?
+Use the highest why supported by the available evidence. A local or technical
+why is a valid AFK result.
 
-Given the above, what limitation does the user face using our product?
-How do we intent to address it?
-And why does it fit our products value proposition?
+## Outside-in
 
-## Step 2
+Trace the work from the beneficiary's context toward the product limitation.
 
-Reverse the order. Ignore answers from Step 1.
-Look at the current set of work and understand:
+1. Who benefits from the work?
 
-Why are we doing this?
-Then ask 2-5 more "why"-based questions:
+Identify the affected beneficiary from project evidence or human input. The
+beneficiary may be a person using an interface, a service consuming an API, an
+engineer using a library, internal staff, or another team. Name the specific
+role and the context in which they receive the benefit.
 
-- "Why is that needed?"
-- "What's the driver for that?"
-- "In order to ...?"
+2. What outcome does the beneficiary value?
 
-Until you reached a genuine user story not rooted in the reality of our product.
+Identify the capability, constraint, or result they care about in their own
+context. Describe success in language meaningful to that beneficiary.
 
-## Step 3
+3. Which current condition limits that outcome?
 
-Bring the two perspectives together.
-Ideally, they overlap perfectly, usually they don't ;)
-Find the truth between and capture it as the user facing why.
+Identify the condition separating the beneficiary's current experience from
+the outcome they value, and why changing this product is an appropriate
+intervention.
 
-## Facts or Ask
+## Inside-out
 
-Each answer has to be based in referencable facts such as tickers, decision records
-or human input.
+Trace the current work through its driving conditions toward the beneficiary
+outcome.
 
-When these don't exist and a human is in the loop: Ask them
-When in AFK mode, rely on the facts you have available and don't dig deeper
+Start from the current work and ask:
+
+- What condition or decision made this work necessary?
+- What outcome does addressing that condition support?
+- Who values that outcome, and in what context?
+
+Continue along the causal chain while each next link is grounded and materially
+changes the understanding of why the work exists.
+
+## Reconcile
+
+Reconcile the paths into the highest grounded why supported by the available
+evidence. Resolve divergences through project evidence or human input.
+
+The result qualifies as a user-facing why when it identifies an evidenced
+beneficiary and an outcome they value. A grounded chain that ends earlier
+remains a local why and can still guide the current work.
